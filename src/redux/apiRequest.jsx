@@ -23,7 +23,7 @@ export const logout = async (dispatch, navigate, accessToken) => {
   dispatch(logoutStart());
   try {
     const res = await axios.post(
-      "https://api-book1.onrender.com//logout",
+      "https://api-book1.onrender.com/logout",
       null,
       {
         headers: { token: `Bearer ${accessToken}` },
