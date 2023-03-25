@@ -3,9 +3,12 @@ import jwt_decode from "jwt-decode";
 
 const refreshToken = async () => {
   try {
-    const res = await axios.post("http://localhost:8080/refreshToken", {
-      withCredentials: true,
-    });
+    const res = await axios.post(
+      "https://api-book1.onrender.com/refreshToken",
+      {
+        withCredentials: true,
+      }
+    );
     return res.data;
   } catch (err) {
     console.log(err);
