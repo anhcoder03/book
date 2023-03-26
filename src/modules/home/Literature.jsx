@@ -8,6 +8,7 @@ import LiteratureItem from "./LiteratureItem";
 const LiteratureStyles = styled.div`
   padding: 20px;
   box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  background-color: #fff;
   .heading {
     padding: 10px 15px;
     font-size: 28px;

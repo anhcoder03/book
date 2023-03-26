@@ -8,6 +8,7 @@ const ServiceStyles = styled.div`
   box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
   padding: 30px;
   margin-bottom: 4rem;
+  background-color: #fff;
   .service-item {
     display: flex;
     align-items: center;
