@@ -38,11 +38,6 @@ function ProductDetailPage() {
   const schema = yup.object({
     review: yup.string().required("Vui long nhập nội dung đánh giá"),
   });
-  useEffect(() => {
-    if (!location.hash) {
-      window.scrollTo(0, 0);
-    }
-  }, [location]);
   const {
     control,
     setValue,
@@ -79,7 +74,6 @@ function ProductDetailPage() {
     average_score,
     review_count,
   } = product;
-  console.log(product);
   const productId = _id;
   useEffect(() => {
     const handleGetComment = async () => {
@@ -118,6 +112,11 @@ function ProductDetailPage() {
       toast.error(arrayError[0]?.message);
     }
   }, [errors]);
+  useEffect(() => {
+    if (!location.hash) {
+      window.scrollTo(0, 0);
+    }
+  }, [location]);
   return (
     <>
       <Header></Header>

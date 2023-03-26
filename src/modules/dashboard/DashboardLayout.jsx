@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
-import { Outlet, useNavigate } from "react-router-dom";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import styled from "styled-components";
 import DashboardHeader from "./DashboardHeader";
@@ -19,6 +19,12 @@ const DashboardStyles = styled.div`
 `;
 const DashboardLayout = ({ children }) => {
   const user = useSelector((state) => state.auth.login?.currentUser);
+  const location = useLocation();
+  useEffect(() => {
+    if (!location.hash) {
+      window.scrollTo(0, 0);
+    }
+  }, [location]);
   const navigate = useNavigate();
   useEffect(() => {
     if (!user) {

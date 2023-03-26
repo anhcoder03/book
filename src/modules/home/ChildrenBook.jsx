@@ -22,7 +22,6 @@ const ChildrenBookStyles = styled.div`
 
 const ChildrenBook = ({ data }) => {
   const listBook = data?.data;
-  console.log(listBook);
   return (
     <ChildrenBookStyles>
       <div className="flex items-center justify-between mb-5">

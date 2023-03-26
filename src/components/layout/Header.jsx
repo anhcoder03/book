@@ -123,25 +123,25 @@ const Header = () => {
     toast.success("Đăng xuất thành công!");
   };
 
-  const HeadRef = useRef(null);
-  useEffect(() => {
-    const windowScroollHandler = debounce((e) => {
-      if (window.window.scrollY > HeadRef.current.clientHeight) {
-        HeadRef.current.classList.add("header-fixed");
-        document.body.style.paddingTop = HeadRef.current.clientHeight + "px";
-      } else if (window.window.scrollY < HeadRef.current.clientHeight) {
-        HeadRef.current.classList.remove("header-fixed");
-        document.body.style.paddingTop = "0px";
-      }
-    }, 500);
-    window.addEventListener("scroll", windowScroollHandler);
-    return () => {
-      window.removeEventListener("scroll", windowScroollHandler);
-    };
-  }, []);
+  // const HeadRef = useRef(null);
+  // useEffect(() => {
+  //   const windowScroollHandler = debounce((e) => {
+  //     if (window.window.scrollY > HeadRef.current.clientHeight) {
+  //       HeadRef.current.classList.add("header-fixed");
+  //       document.body.style.paddingTop = HeadRef.current.clientHeight + "px";
+  //     } else if (window.window.scrollY < HeadRef.current.clientHeight) {
+  //       HeadRef.current.classList.remove("header-fixed");
+  //       document.body.style.paddingTop = "0px";
+  //     }
+  //   }, 100);
+  //   window.addEventListener("scroll", windowScroollHandler);
+  //   return () => {
+  //     window.removeEventListener("scroll", windowScroollHandler);
+  //   };
+  // }, []);
 
   return (
-    <HeaderStyles ref={HeadRef}>
+    <HeaderStyles>
       <div className="container">
         <div className="header-main">
           <NavLink to="/">
