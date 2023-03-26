@@ -26,6 +26,7 @@ const SearchStyles = styled.div`
     flex: 1;
     padding-right: 80px;
     font-weight: 500;
+    background-color: #fff;
   }
   .search-icon {
     position: absolute;
