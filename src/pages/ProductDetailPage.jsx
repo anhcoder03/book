@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { NavLink, useParams } from "react-router-dom";
+import { NavLink, useParams, useLocation } from "react-router-dom";
 import axiosClient from "../axios/configAxios";
 import Footer from "../components/layout/Footer";
 import Header from "../components/layout/Header";
@@ -17,7 +17,6 @@ import Radio from "../components/radio/Radio";
 import StarRating from "../components/rating/StarRating";
 import { Textarea } from "../components/textarea";
 import styled from "styled-components";
-import ConvertTime from "../utils/convertTime";
 import convertTimestampToDateTime from "../utils/convertTime";
 
 const CommentStyles = styled.div`
@@ -32,12 +31,18 @@ function ProductDetailPage() {
   const username = user?.username;
   const userImage = user?.image;
   const accessToken = user?.accessToken;
+  const location = useLocation();
   const { slug } = useParams();
   const [product, setProduct] = useState([]);
   const [listComment, setListComment] = useState([]);
   const schema = yup.object({
     review: yup.string().required("Vui long nhập nội dung đánh giá"),
   });
+  useEffect(() => {
+    if (!location.hash) {
+      window.scrollTo(0, 0);
+    }
+  }, [location]);
   const {
     control,
     setValue,
