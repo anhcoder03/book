@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -7,16 +7,20 @@ import useClickOutSide from "../../hooks/useClickOutSide";
 import { logout } from "../../redux/apiRequest";
 import { InputSearch } from "../input";
 import { debounce } from "lodash";
+import { IconMenu } from "../icon";
+import MenuMobile from "./MenuMobile";
 
 const HeaderStyles = styled.header`
   padding: 20px 0;
   border-bottom: 1px solid #d1d1d1;
   width: 100%;
   background-color: white;
+  position: relative;
   .header-main {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    position: relative;
   }
   .logo {
     display: block;
@@ -110,10 +114,28 @@ const HeaderStyles = styled.header`
     object-fit: cover;
     border-radius: 50%;
   }
+  .menu-icon {
+    display: none;
+  }
+  @media screen and (max-width: 768px) {
+    .logo {
+      max-width: 150px;
+    }
+    .login {
+      display: none;
+    }
+    .cart-icon {
+      display: none;
+    }
+    .menu-icon {
+      display: block;
+    }
+  }
 `;
 
 const Header = () => {
   const { show, setShow, nodeRef } = useClickOutSide(".action-user");
+  const [showMenu, setShowMenu] = useState(false);
   const user = useSelector((state) => state.auth.login?.currentUser);
   const accessToken = user?.accessToken;
   const dispatch = useDispatch();
@@ -183,9 +205,14 @@ const Header = () => {
               <i className="fa-sharp fa-solid fa-cart-shopping"></i>
               <span className="cart-total">0</span>
             </NavLink>
+            <IconMenu
+              className="menu-icon"
+              onClick={() => setShowMenu(!showMenu)}
+            ></IconMenu>
           </div>
         </div>
       </div>
+      {showMenu && <MenuMobile></MenuMobile>}
     </HeaderStyles>
   );
 };

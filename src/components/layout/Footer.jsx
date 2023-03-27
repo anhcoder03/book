@@ -47,6 +47,27 @@ const FooterStyles = styled.div`
     font-size: 16px;
     color: #333;
   }
+  @media screen and (max-width: 768px) {
+    .footer-top {
+      grid-template-columns: repeat(1, 1fr);
+    }
+    .footer-content p {
+      font-size: 16px;
+    }
+    .footer-title::after {
+      height: 0;
+    }
+    .footer-link {
+      font-size: 14px;
+    }
+    .map {
+      width: 100%;
+      height: 250px;
+    }
+    .footer-title {
+      font-size: 18px;
+    }
+  }
 `;
 
 const Footer = () => {
@@ -103,6 +124,7 @@ const Footer = () => {
                 height="100"
                 allowFullScreen=""
                 loading="lazy"
+                className="map"
                 referrerPolicy="no-referrer-when-downgrade"
               ></iframe>
               <p>

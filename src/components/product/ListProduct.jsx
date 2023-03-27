@@ -13,8 +13,22 @@ const ListProductStyles = styled.div`
     display: grid;
     grid-template-columns: repeat(5, 1fr);
   }
+  @media screen and (max-width: 767.98px) {
+    width: 100%;
+    .product-list {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
 `;
 const CategoryStyles = styled.div`
+  @media screen and (max-width: 768px) {
+    width: 100%;
+
+    .category-list {
+      display: flex;
+    }
+  }
   width: 20%;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
   .category-list {
@@ -30,6 +44,9 @@ const ProductContentStyles = styled.div`
   margin-top: 50px;
   display: flex;
   gap: 50px;
+  @media screen and (max-width: 768px) {
+    flex-direction: column;
+  }
 `;
 const ListProduct = () => {
   const [listCategory, setListCategory] = useState([]);

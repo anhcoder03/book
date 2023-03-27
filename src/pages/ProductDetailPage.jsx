@@ -25,6 +25,21 @@ const CommentStyles = styled.div`
   padding: 30px;
   border-radius: 12px;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  .commentBtn {
+    max-width: 300px;
+    margin: 0 auto;
+    margin-top: 20px;
+  }
+  @media screen and (max-width: 767.98px) {
+    .heading {
+      font-size: 20px;
+    }
+    .commentBtn {
+      width: 100%;
+      height: 50px;
+      margin-top: 20px;
+    }
+  }
 `;
 
 function ProductDetailPage() {
@@ -133,11 +148,11 @@ function ProductDetailPage() {
         ></ProductDetailMain>
         <ProductDescription title={title} desc={desc}></ProductDescription>
         <CommentStyles className="comment-wrraper">
-          <h1 className="text-3xl font-bold">Đánh giá</h1>
+          <h1 className="text-3xl font-bold heading">ĐÁNH GIÁ</h1>
           <div className="listComment mt-8">
             {listComment.length > 0 ? (
               listComment.map((item) => (
-                <div key={item._id} className="mb-4">
+                <div key={item._id} className="mb-5">
                   <div className="flex gap-x-4 items-center">
                     <img
                       src={item?.userImage}
@@ -146,7 +161,7 @@ function ProductDetailPage() {
                     />
                     <div className="">
                       <p className="font-medium">{item.username}</p>
-                      <p className="flex items-center">
+                      <p className="flex items-center text-xs lg:text-lg">
                         {<StarRating rating={item.rating}></StarRating>}
                         <span className="px-2">{item.rating}.0</span>
                         <span>
@@ -161,14 +176,14 @@ function ProductDetailPage() {
                 </div>
               ))
             ) : (
-              <p className="text-center text-primary">
+              <p className="text-center  text-primary">
                 Chưa có đánh giá nào cho sản phẩm này.
               </p>
             )}
           </div>
           {!user ? (
             <div>
-              <h1 className=" mt-10 text-lg font-semibold">
+              <h1 className=" mt-10 text-sm lg:text:lg font-semibold">
                 Để lại đánh giá cho sản phẩm này
               </h1>
               <p className="mt-10 text-center">
@@ -190,7 +205,9 @@ function ProductDetailPage() {
                 Để lại đánh giá cho sản phẩm này
               </h1>
               <div className="rating mt-5 ">
-                <h3 className="font-semibold text-[#666]">Đánh giá sao *</h3>
+                <h3 className="font-semibold text-xs lg:text-sm text-[#666]">
+                  Đánh giá sao *
+                </h3>
                 <span className="flex gap-x-1">
                   <Radio
                     name="rating"
@@ -231,10 +248,7 @@ function ProductDetailPage() {
               ></Textarea>
               <Button
                 type="submit"
-                style={{
-                  maxWidth: 300,
-                  margin: "0 auto",
-                }}
+                className="commentBtn"
                 width={"100%"}
                 isLoading={isSubmitting}
                 disabled={isSubmitting}

@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import InputSearchMobile from "../components/input/InputSearchMobile";
 import Footer from "../components/layout/Footer";
 import Header from "../components/layout/Header";
 import Menu from "../components/layout/Menu";
@@ -15,6 +16,7 @@ const HomePage = () => {
     <HomePageStyles>
       <Header></Header>
       <Menu></Menu>
+      <InputSearchMobile></InputSearchMobile>
       <Slider></Slider>
       <div className="container">
         <Service></Service>

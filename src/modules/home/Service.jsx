@@ -39,6 +39,9 @@ const ServiceStyles = styled.div`
     font-size: 14px;
     color: rgb(125, 135, 156);
   }
+  @media screen and (max-width: 768px) {
+    display: none;
+  }
 `;
 const listService = [
   {

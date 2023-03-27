@@ -48,6 +48,27 @@ const ProductDetailMainStyles = styled.div`
     display: flex;
     gap: 50px;
   }
+  @media screen and (max-width: 767.98px) {
+    .product-wrapper {
+      flex-direction: column;
+      gap: 50px;
+    }
+    .product-image img {
+      max-width: 200px;
+    }
+    .product-image {
+      width: 100%;
+    }
+    .product-title {
+      font-size: 18px;
+    }
+    .product-info {
+      font-size: 16px;
+    }
+    .btn-add {
+      width: 100%;
+    }
+  }
 `;
 function ProductDetailMain({
   reviewCount,
@@ -87,7 +108,9 @@ function ProductDetailMain({
           </p>
           <Quantity></Quantity>
           <div className="addToCart">
-            <Button height={"50px"}>Thêm vào giỏ hàng</Button>
+            <Button height={"50px"} className="btn-add">
+              Thêm vào giỏ hàng
+            </Button>
           </div>
         </div>
       </div>

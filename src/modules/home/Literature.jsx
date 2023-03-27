@@ -17,6 +17,20 @@ const LiteratureStyles = styled.div`
     color: #000;
     width: 350px;
   }
+  @media screen and (max-width: 768px) {
+    .heading {
+      width: auto;
+      font-size: 20px;
+      padding: 0;
+    }
+    hr {
+      display: none;
+    }
+    .load-more {
+      background-color: transparent;
+      width: auto;
+    }
+  }
 `;
 
 const Literature = ({ data }) => {
@@ -27,7 +41,7 @@ const Literature = ({ data }) => {
         <h1 className="heading">Sách Văn Học</h1>
         <hr className="w-full" />
         <NavLink
-          className="w-[150px] ml-5 block bg-primary text-center
+          className="load-more w-[150px] ml-5 block bg-primary text-center
         py-3 px-4 text-xs rounded text-white"
           to={"/product"}
         >

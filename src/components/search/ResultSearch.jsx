@@ -5,6 +5,7 @@ import styled from "styled-components";
 const ResultSearchStyle = styled.div`
   position: absolute;
   top: calc(100% + 5px);
+  left: 0;
   z-index: 9;
   width: 100%;
   background-color: white;
@@ -14,11 +15,11 @@ const ResultSearchStyle = styled.div`
   display: flex;
   flex-direction: column;
   gap: 10px 0;
+
   .product-item {
     display: flex;
     width: 100%;
     max-height: 120px;
-    align-items: center;
   }
   .product-image {
     width: 100px;
@@ -27,6 +28,24 @@ const ResultSearchStyle = styled.div`
   .product-image img {
     width: 100%;
     height: 100%;
+  }
+  @media screen and (max-width: 767.98px) {
+    width: 90%;
+    margin: 0 20px;
+    top: 100%;
+    .product-item {
+      max-height: 80px;
+      gap: 40px;
+    }
+    .product-image {
+      width: 30%;
+    }
+    .product-name {
+      width: 70%;
+    }
+    .product-title {
+      font-size: 14px;
+    }
   }
 `;
 function ResultSearch({ data, show = true, nodeRef }) {

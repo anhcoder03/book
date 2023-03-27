@@ -19,6 +19,12 @@ const TextareaStyles = styled.div`
   .text-area:focus {
     border: 1px solid ${(props) => props.theme.primary};
   }
+  @media screen and (max-width: 767.98px) {
+    h3 {
+      font-size: 16px;
+      margin-bottom: 15px;
+    }
+  }
 `;
 
 function Textarea({ children, name, control, ...props }) {

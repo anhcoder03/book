@@ -49,6 +49,9 @@ const MenuStyles = styled.ul`
   .menu-link:hover {
     color: #ff6651;
   }
+  @media screen and (max-width: 768px) {
+    display: none;
+  }
 `;
 const Menu = () => {
   return (

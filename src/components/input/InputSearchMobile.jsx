@@ -10,24 +10,25 @@ import ResultSearch from "../search/ResultSearch";
 
 const SearchWrapper = styled.div`
   width: 100%;
-  max-width: 500px;
+  max-width: 100%;
+  display: none;
   position: relative;
-  @media screen and (max-width: 768px) {
-    display: none;
+  @media screen and (max-width: 767.98px) {
+    display: block;
+    padding: 20px;
   }
 `;
 
 const SearchStyles = styled.div`
+  background-color: #fff;
   display: flex;
   align-items: center;
-  padding: 12px 25px;
+  padding: 8px 20px;
   border: 1px solid #eee;
   border-radius: 20px;
   width: 100%;
   position: relative;
   .search-input {
-    flex: 1;
-    padding-right: 80px;
     font-weight: 500;
     background-color: #fff;
   }
@@ -42,12 +43,21 @@ const SearchStyles = styled.div`
     top: 50%;
     transform: translateY(-50%);
     border-radius: 20px;
-    right: 4px;
+    right: 8px;
     cursor: pointer;
+  }
+  @media screen and (max-width: 767.98px) {
+    .search-input {
+      width: 100%;
+    }
+    .search-icon {
+      height: 30px;
+      width: 50px;
+    }
   }
 `;
 
-const InputSearch = () => {
+const InputSearchMobile = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [listProduct, setListProduct] = useState([]);
   const [searchValue, setSearchValue] = useState("");
@@ -105,10 +115,10 @@ const InputSearch = () => {
     </SearchWrapper>
   );
 };
-InputSearch.propTypes = {
+InputSearchMobile.propTypes = {
   value: PropTypes.string,
   onChange: PropTypes.func,
   onClick: PropTypes.func,
   clearValue: PropTypes.func,
 };
-export default InputSearch;
+export default InputSearchMobile;

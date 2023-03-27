@@ -17,11 +17,16 @@ const DescriptionStyle = styled.div`
     font-weight: 700;
     margin-bottom: 30px;
   }
+  @media screen and (max-width: 767.98px) {
+    .description-heading {
+      font-size: 20px;
+    }
+  }
 `;
 function ProductDescription({ desc }) {
   return (
     <DescriptionStyle>
-      <h1 className="description-heading">Mô tả</h1>
+      <h1 className="description-heading">MÔ TẢ</h1>
       <div className="entry-content">{parse(desc || "")}</div>
     </DescriptionStyle>
   );
