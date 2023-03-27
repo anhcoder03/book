@@ -11,7 +11,7 @@ import {
 export const login = async (user, dispatch, navigate) => {
   dispatch(loginStart());
   try {
-    const res = await axios.post("http://localhost:1234/login", user);
+    const res = await axios.post("https://api-book1.onrender.com/login", user);
     dispatch(loginSuccess(res?.data));
     navigate("/");
   } catch (error) {
@@ -22,9 +22,13 @@ export const login = async (user, dispatch, navigate) => {
 export const logout = async (dispatch, navigate, accessToken) => {
   dispatch(logoutStart());
   try {
-    const res = await axios.post("http://localhost:1234/logout", null, {
-      headers: { token: `Bearer ${accessToken}` },
-    });
+    const res = await axios.post(
+      "https://api-book1.onrender.com/logout",
+      null,
+      {
+        headers: { token: `Bearer ${accessToken}` },
+      }
+    );
 
     if (res.status === 200) {
       dispatch(logoutSuccess());
