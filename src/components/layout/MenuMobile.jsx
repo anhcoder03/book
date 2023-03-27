@@ -29,6 +29,7 @@ const menuLinks = [
   },
 ];
 const MenuStyles = styled.ul`
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
   /* top: calc(100% + 30px); */
   top: 0;
   position: fixed;

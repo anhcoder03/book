@@ -42,7 +42,7 @@ const Literature = ({ data }) => {
         <hr className="w-full" />
         <NavLink
           className="load-more w-[150px] ml-5 block bg-primary text-center
-        py-3 px-4 text-xs rounded text-white"
+        py-3 px-4 text-xs rounded text-white lg:text-black"
           to={"/product"}
         >
           Xem thêm <i className="fa-solid fa-arrow-right"></i>
