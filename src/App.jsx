@@ -3,6 +3,7 @@ import { Route, Routes } from "react-router-dom";
 import LoadingPage from "./components/common/LoadingPage";
 import { AuthProvider } from "./context/auth-context";
 const HomePage = React.lazy(() => import("./pages/HomePage"));
+const CartPage = React.lazy(() => import("./pages/CartPage"));
 const ProductPage = React.lazy(() => import("./pages/ProductPage"));
 const ProductDetailPage = React.lazy(() => import("./pages/ProductDetailPage"));
 const AddCategory = React.lazy(() => import("./modules/category/AddCategory"));
@@ -41,6 +42,7 @@ function App() {
       <Suspense fallback={<LoadingPage />}>
         <Routes>
           <Route path="/" element={<HomePage />}></Route>
+          <Route path="/cart" element={<CartPage />}></Route>
           <Route path="sign-up" element={<SignUpPage></SignUpPage>}></Route>
           <Route path="sign-in" element={<SignInPage></SignInPage>}></Route>
           <Route path="/product" element={<ProductPage></ProductPage>}></Route>

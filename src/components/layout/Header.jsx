@@ -179,10 +179,10 @@ const Header = () => {
                 </div>
               )}
             </div>
-            <div className="cart-icon">
+            <NavLink to={"/cart"} className="cart-icon">
               <i className="fa-sharp fa-solid fa-cart-shopping"></i>
               <span className="cart-total">0</span>
-            </div>
+            </NavLink>
           </div>
         </div>
       </div>

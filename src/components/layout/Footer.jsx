@@ -56,7 +56,7 @@ const Footer = () => {
         <div className="footer-top py-3">
           <div className="footer-column">
             <NavLink>
-              <img src="logo.svg" alt="" />
+              <img src="../logo.svg" alt="" />
             </NavLink>
             <ul className="footer-content">
               <p>

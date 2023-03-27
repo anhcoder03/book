@@ -6,7 +6,6 @@ import "swiper/css/pagination";
 import "swiper/css/navigation";
 import "swiper/css/autoplay";
 import { Autoplay, Pagination, Navigation } from "swiper";
-import { useNavigate } from "react-router-dom";
 
 const slideImages = [
   {

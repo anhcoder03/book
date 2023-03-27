@@ -18,6 +18,7 @@ import StarRating from "../components/rating/StarRating";
 import { Textarea } from "../components/textarea";
 import styled from "styled-components";
 import convertTimestampToDateTime from "../utils/convertTime";
+import ProductSimilar from "../components/product_detail/ProductSimilar";
 
 const CommentStyles = styled.div`
   margin-top: 30px;
@@ -40,9 +41,7 @@ function ProductDetailPage() {
   });
   const {
     control,
-    setValue,
     handleSubmit,
-    getValues,
     watch,
     formState: { errors, isValid, isSubmitting },
   } = useForm({
@@ -71,6 +70,7 @@ function ProductDetailPage() {
     year,
     desc,
     author,
+    category,
     average_score,
     review_count,
   } = product;
@@ -84,7 +84,7 @@ function ProductDetailPage() {
       setListComment(response.data);
     };
     handleGetComment();
-  }, [_id]);
+  }, [_id, slug]);
   const handleSubmitComment = async (values) => {
     if (!isValid) return;
     try {
@@ -244,6 +244,7 @@ function ProductDetailPage() {
             </form>
           )}
         </CommentStyles>
+        <ProductSimilar category={category}></ProductSimilar>
       </div>
       <Footer></Footer>
     </>
