@@ -1,6 +1,8 @@
 import { Rating } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import styled from "styled-components";
 import { addItem } from "../../redux/cart/cartSlice";
 import formatPrice from "../../utils/formatPrice";
@@ -83,19 +85,26 @@ function ProductDetailMain({
   year,
   price,
 }) {
-  console.log(averageScore);
   const dispatch = useDispatch();
   const [quantity, setQuantity] = useState(1);
-
+  const navigate = useNavigate();
+  const user = useSelector((state) => state.auth.login?.currentUser);
   const handleAddToCart = () => {
-    dispatch(
-      addItem({
-        id: id,
-        title: title,
-        price: price,
-        quantity: quantity,
-      })
-    );
+    if (user) {
+      dispatch(
+        addItem({
+          id: id,
+          title: title,
+          image: image,
+          price: price,
+          quantity: quantity,
+        })
+      );
+      toast.success("Thêm vào giỏ hàng thành công");
+    } else {
+      toast.error("Vui lòng đăng nhập!");
+      navigate("/sign-in");
+    }
   };
   return (
     <ProductDetailMainStyles>
