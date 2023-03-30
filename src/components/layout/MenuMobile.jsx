@@ -27,6 +27,10 @@ const menuLinks = [
     url: "/contact",
     title: "Liên Hệ",
   },
+  {
+    url: "/cart",
+    title: "Giỏ hàng",
+  },
 ];
 const MenuStyles = styled.ul`
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;

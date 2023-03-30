@@ -105,6 +105,40 @@ const ListCartStyles = styled.div`
     flex-direction: column;
     gap: 30px;
   }
+  @media screen and (max-width: 767.98px) {
+    .cart-delete,
+    .cart-header {
+      display: none;
+    }
+    .cart-content {
+      flex-direction: column;
+      gap: 20px;
+    }
+    .cart-content__left {
+      width: 100%;
+    }
+    .cart-content__right {
+      gap: 20px;
+    }
+    .cart-price {
+      display: none;
+    }
+    .cart-bottom {
+      padding-top: 10px;
+      flex-direction: column;
+      width: 100%;
+    }
+    .cart-bottom button {
+      width: 200px;
+    }
+    .no-cart p {
+      font-size: 14px;
+    }
+    .no-cart button {
+      width: 200px;
+      height: 50px;
+    }
+  }
 `;
 
 const ListCart = () => {
@@ -133,9 +167,7 @@ const ListCart = () => {
                 </div>
               </div>
               <div className="cart-content__right">
-                <div className="cart-content-item">
-                  {formatPrice(item.price)}đ
-                </div>
+                <div className="cart-price">{formatPrice(item.price)}đ</div>
                 <div className="cart-content-item">
                   <div className="quantity-wrapper">
                     <button
