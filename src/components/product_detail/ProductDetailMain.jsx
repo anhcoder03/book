@@ -1,5 +1,8 @@
-import React from "react";
+import { Rating } from "@mui/material";
+import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import styled from "styled-components";
+import { addItem } from "../../redux/cart/cartSlice";
 import formatPrice from "../../utils/formatPrice";
 import { Button } from "../button";
 import Quantity from "../quantity/Quantity";
@@ -80,6 +83,20 @@ function ProductDetailMain({
   year,
   price,
 }) {
+  console.log(averageScore);
+  const dispatch = useDispatch();
+  const [quantity, setQuantity] = useState(1);
+
+  const handleAddToCart = () => {
+    dispatch(
+      addItem({
+        id: id,
+        title: title,
+        price: price,
+        quantity: quantity,
+      })
+    );
+  };
   return (
     <ProductDetailMainStyles>
       <div className="product-wrapper">
@@ -97,7 +114,7 @@ function ProductDetailMain({
             <span className="product-year">{year}</span>
           </h4>
           <div className="flex items-center mt-3">
-            {<StarRating rating={averageScore} textSm={true}></StarRating>}
+            <StarRating rating={averageScore}></StarRating>
             <span>({reviewCount} đánh giá)</span>
           </div>
           <p className="product-info">
@@ -106,9 +123,13 @@ function ProductDetailMain({
               {price && formatPrice(price)} đ
             </span>
           </p>
-          <Quantity></Quantity>
+          <Quantity quantity={quantity} setQuantity={setQuantity}></Quantity>
           <div className="addToCart">
-            <Button height={"50px"} className="btn-add">
+            <Button
+              height={"50px"}
+              onClick={handleAddToCart}
+              className="btn-add"
+            >
               Thêm vào giỏ hàng
             </Button>
           </div>

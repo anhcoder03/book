@@ -134,6 +134,7 @@ const HeaderStyles = styled.header`
 `;
 
 const Header = () => {
+  const listCart = useSelector((state) => state.cart);
   const { show, setShow, nodeRef } = useClickOutSide(".action-user");
   const [showMenu, setShowMenu] = useState(false);
   const user = useSelector((state) => state.auth.login?.currentUser);
@@ -203,7 +204,7 @@ const Header = () => {
             </div>
             <NavLink to={"/cart"} className="cart-icon">
               <i className="fa-sharp fa-solid fa-cart-shopping"></i>
-              <span className="cart-total">0</span>
+              <span className="cart-total">{listCart?.totalQuantity}</span>
             </NavLink>
             <IconMenu
               className="menu-icon"

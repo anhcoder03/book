@@ -27,9 +27,7 @@ const QuantityStyles = styled.div`
   }
 `;
 
-function Quantity() {
-  const [quantity, setQuantity] = useState(1);
-
+function Quantity({ quantity, setQuantity }) {
   const decrement = () => {
     if (quantity === 1) return;
     setQuantity(quantity - 1);

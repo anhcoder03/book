@@ -8,14 +8,14 @@ const StarRating = ({ rating, textSm = false }) => {
           key={i}
           className={`fa-sharp fa-solid fa-star ${
             textSm ? "text-xs" : "text-base"
-          }  text-primary`}
+          }  text-[#faaf00]`}
         ></i>
       );
     } else {
       stars.push(
         <span
           key={i}
-          className={`${textSm ? "text-xl" : "text-2xl"}  text-primary`}
+          className={`${textSm ? "text-xl" : "text-2xl"}  text-[#faaf00]`}
         >
           ☆
         </span>

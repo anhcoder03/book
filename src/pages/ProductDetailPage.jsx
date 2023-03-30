@@ -12,13 +12,11 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { Button } from "../components/button";
 import { toast } from "react-toastify";
-import { Input } from "../components/input";
-import Radio from "../components/radio/Radio";
-import StarRating from "../components/rating/StarRating";
 import { Textarea } from "../components/textarea";
 import styled from "styled-components";
 import convertTimestampToDateTime from "../utils/convertTime";
 import ProductSimilar from "../components/product_detail/ProductSimilar";
+import { Rating } from "@mui/material";
 
 const CommentStyles = styled.div`
   margin-top: 30px;
@@ -44,6 +42,7 @@ const CommentStyles = styled.div`
 
 function ProductDetailPage() {
   const user = useSelector((state) => state.auth.login?.currentUser);
+  const [rating, setRating] = React.useState(5);
   const username = user?.username;
   const userImage = user?.image;
   const accessToken = user?.accessToken;
@@ -62,19 +61,15 @@ function ProductDetailPage() {
   } = useForm({
     mode: "onChange",
     resolver: yupResolver(schema),
-    defaultValues: {
-      rating: "5",
-    },
   });
-  const watchRating = watch("rating");
+  const handleGetProduct = async () => {
+    const response = await axiosClient.request({
+      method: "get",
+      url: `getProduct/${slug}`,
+    });
+    setProduct(response.data);
+  };
   useEffect(() => {
-    const handleGetProduct = async () => {
-      const response = await axiosClient.request({
-        method: "get",
-        url: `getProduct/${slug}`,
-      });
-      setProduct(response.data);
-    };
     handleGetProduct();
   }, [slug]);
   const {
@@ -90,14 +85,14 @@ function ProductDetailPage() {
     review_count,
   } = product;
   const productId = _id;
+  const handleGetComment = async () => {
+    const response = await axiosClient.request({
+      method: "get",
+      url: `getCommentAll/${_id}`,
+    });
+    setListComment(response.data);
+  };
   useEffect(() => {
-    const handleGetComment = async () => {
-      const response = await axiosClient.request({
-        method: "get",
-        url: `getCommentAll/${_id}`,
-      });
-      setListComment(response.data);
-    };
     handleGetComment();
   }, [_id, slug]);
   const handleSubmitComment = async (values) => {
@@ -107,13 +102,15 @@ function ProductDetailPage() {
         .request({
           method: "post",
           url: `/addComment`,
-          data: { ...values, username, productId, userImage },
+          data: { ...values, rating, username, productId, userImage },
           headers: {
             token: `Bearer ${accessToken}`,
           },
         })
         .then(() => {
           toast.success("Bình luận sản phẩm thành công");
+          handleGetProduct();
+          handleGetComment();
         });
     } catch (error) {
       console.log(error);
@@ -142,6 +139,7 @@ function ProductDetailPage() {
           title={title}
           author={author}
           year={year}
+          id={_id}
           price={price}
           averageScore={average_score}
           reviewCount={review_count}
@@ -162,8 +160,7 @@ function ProductDetailPage() {
                     <div className="">
                       <p className="font-medium">{item.username}</p>
                       <p className="flex items-center text-xs lg:text-lg">
-                        {<StarRating rating={item.rating}></StarRating>}
-                        <span className="px-2">{item.rating}.0</span>
+                        <Rating readOnly value={item?.rating} />
                         <span>
                           {convertTimestampToDateTime(item.createdAt)}
                         </span>
@@ -209,36 +206,13 @@ function ProductDetailPage() {
                   Đánh giá sao *
                 </h3>
                 <span className="flex gap-x-1">
-                  <Radio
+                  <Rating
                     name="rating"
-                    control={control}
-                    value="1"
-                    checked={watchRating === "1"}
-                  ></Radio>
-                  <Radio
-                    name="rating"
-                    control={control}
-                    value="2"
-                    checked={watchRating === "2"}
-                  ></Radio>
-                  <Radio
-                    name="rating"
-                    control={control}
-                    value="3"
-                    checked={watchRating === "3"}
-                  ></Radio>
-                  <Radio
-                    name="rating"
-                    control={control}
-                    value="4"
-                    checked={watchRating === "4"}
-                  ></Radio>
-                  <Radio
-                    name="rating"
-                    control={control}
-                    value="5"
-                    checked={watchRating === "5"}
-                  ></Radio>
+                    value={rating}
+                    onChange={(event, newValue) => {
+                      setRating(newValue);
+                    }}
+                  />
                 </span>
               </div>
               <Textarea
