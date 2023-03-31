@@ -215,9 +215,11 @@ const ListCart = () => {
       <div className="cart-bottom">
         <div className="totalPrice">Tổng tiền: {formatPrice(totalPrice)}đ</div>
         <div className="cart-header-item">
-          <Button height={"50px"} width={"250px"}>
-            Thanh toán
-          </Button>
+          <NavLink to={"/checkout"}>
+            <Button height={"50px"} width={"250px"}>
+              Thanh toán
+            </Button>
+          </NavLink>
         </div>
       </div>
     </ListCartStyles>

@@ -16,13 +16,11 @@ import { Textarea } from "../components/textarea";
 import styled from "styled-components";
 import convertTimestampToDateTime from "../utils/convertTime";
 import ProductSimilar from "../components/product_detail/ProductSimilar";
-import { Rating } from "@mui/material";
+import { Rating, Tab, Tabs } from "@mui/material";
+import TabPanel from "../components/tabpanel/Tabpanel";
 
 const CommentStyles = styled.div`
   margin-top: 30px;
-  padding: 30px;
-  border-radius: 12px;
-  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
   .commentBtn {
     max-width: 300px;
     margin: 0 auto;
@@ -40,8 +38,19 @@ const CommentStyles = styled.div`
   }
 `;
 
+const TabStyles = styled.div`
+  padding: 30px;
+  margin-top: 30px;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  border-radius: 12px;
+`;
+
 function ProductDetailPage() {
   const user = useSelector((state) => state.auth.login?.currentUser);
+  const [value, setValue] = React.useState(0);
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
   const [rating, setRating] = React.useState(5);
   const username = user?.username;
   const userImage = user?.image;
@@ -129,6 +138,12 @@ function ProductDetailPage() {
       window.scrollTo(0, 0);
     }
   }, [location]);
+  function a11yProps(index) {
+    return {
+      id: `simple-tab-${index}`,
+      "aria-controls": `simple-tabpanel-${index}`,
+    };
+  }
   return (
     <>
       <Header></Header>
@@ -144,94 +159,108 @@ function ProductDetailPage() {
           averageScore={average_score}
           reviewCount={review_count}
         ></ProductDetailMain>
-        <ProductDescription title={title} desc={desc}></ProductDescription>
-        <CommentStyles className="comment-wrraper">
-          <h1 className="text-3xl font-bold heading">ĐÁNH GIÁ</h1>
-          <div className="listComment mt-8">
-            {listComment.length > 0 ? (
-              listComment.map((item) => (
-                <div key={item._id} className="mb-5">
-                  <div className="flex gap-x-4 items-center">
-                    <img
-                      src={item?.userImage}
-                      className="w-[40px] h-[40px] rounded-full object-cover"
-                      alt={item.title}
-                    />
-                    <div className="">
-                      <p className="font-medium">{item.username}</p>
-                      <p className="flex items-center text-xs lg:text-lg">
-                        <Rating readOnly value={item?.rating} />
-                        <span>
-                          {convertTimestampToDateTime(item.createdAt)}
-                        </span>
-                      </p>
+        <TabStyles>
+          <Tabs
+            value={value}
+            onChange={handleChange}
+            aria-label="basic tabs example"
+          >
+            <Tab label="Mô tả" {...a11yProps(0)} />
+            <Tab label="Đánh giá" {...a11yProps(1)} />
+          </Tabs>
+          <TabPanel value={value} index={0}>
+            <ProductDescription desc={desc}></ProductDescription>
+          </TabPanel>
+          <TabPanel value={value} index={1}>
+            <CommentStyles className="comment-wrraper">
+              <div className="listComment mt-8">
+                {listComment.length > 0 ? (
+                  listComment.map((item) => (
+                    <div key={item._id} className="mb-5">
+                      <div className="flex gap-x-4 items-center">
+                        <img
+                          src={item?.userImage}
+                          className="w-[40px] h-[40px] rounded-full object-cover"
+                          alt={item.title}
+                        />
+                        <div className="">
+                          <p className="font-medium">{item.username}</p>
+                          <p className="flex items-center text-xs lg:text-lg">
+                            <Rating readOnly value={item?.rating} />
+                            <span>
+                              {convertTimestampToDateTime(item.createdAt)}
+                            </span>
+                          </p>
+                        </div>
+                      </div>
+                      <div className="mt-2">
+                        <span className="text-sm">{item.review}</span>
+                      </div>
                     </div>
-                  </div>
-                  <div className="mt-2">
-                    <span className="text-sm">{item.review}</span>
-                  </div>
-                </div>
-              ))
-            ) : (
-              <p className="text-center  text-primary">
-                Chưa có đánh giá nào cho sản phẩm này.
-              </p>
-            )}
-          </div>
-          {!user ? (
-            <div>
-              <h1 className=" mt-10 text-sm lg:text:lg font-semibold">
-                Để lại đánh giá cho sản phẩm này
-              </h1>
-              <p className="mt-10 text-center">
-                Đăng nhập mới có thể đánh giá sản phẩm.
-              </p>
-              <NavLink
-                to="/sign-in"
-                className={"mt-2 text-center text-blue-400 block"}
-              >
-                Đăng nhập
-              </NavLink>
-            </div>
-          ) : (
-            <form
-              onSubmit={handleSubmit(handleSubmitComment)}
-              className="comment"
-            >
-              <h1 className=" mt-10 text-lg font-semibold">
-                Để lại đánh giá cho sản phẩm này
-              </h1>
-              <div className="rating mt-5 ">
-                <h3 className="font-semibold text-xs lg:text-sm text-[#666]">
-                  Đánh giá sao *
-                </h3>
-                <span className="flex gap-x-1">
-                  <Rating
-                    name="rating"
-                    value={rating}
-                    onChange={(event, newValue) => {
-                      setRating(newValue);
-                    }}
-                  />
-                </span>
+                  ))
+                ) : (
+                  <p className="text-center  text-primary">
+                    Chưa có đánh giá nào cho sản phẩm này.
+                  </p>
+                )}
               </div>
-              <Textarea
-                children={"Viết đánh giá cho sản phẩm này *"}
-                name={"review"}
-                control={control}
-              ></Textarea>
-              <Button
-                type="submit"
-                className="commentBtn"
-                width={"100%"}
-                isLoading={isSubmitting}
-                disabled={isSubmitting}
-              >
-                Bình luận
-              </Button>
-            </form>
-          )}
-        </CommentStyles>
+              {!user ? (
+                <div>
+                  <h1 className=" mt-10 text-sm lg:text:lg font-semibold">
+                    Để lại đánh giá cho sản phẩm này
+                  </h1>
+                  <p className="mt-10 text-center">
+                    Đăng nhập mới có thể đánh giá sản phẩm.
+                  </p>
+                  <NavLink
+                    to="/sign-in"
+                    className={"mt-2 text-center text-blue-400 block"}
+                  >
+                    Đăng nhập
+                  </NavLink>
+                </div>
+              ) : (
+                <form
+                  onSubmit={handleSubmit(handleSubmitComment)}
+                  className="comment"
+                >
+                  <h1 className=" mt-10 text-lg font-semibold">
+                    Để lại đánh giá cho sản phẩm này
+                  </h1>
+                  <div className="rating mt-5 ">
+                    <h3 className="font-semibold text-xs lg:text-sm text-[#666]">
+                      Đánh giá sao *
+                    </h3>
+                    <span className="flex gap-x-1">
+                      <Rating
+                        name="rating"
+                        value={rating}
+                        onChange={(event, newValue) => {
+                          setRating(newValue);
+                        }}
+                      />
+                    </span>
+                  </div>
+                  <Textarea
+                    children={"Viết đánh giá cho sản phẩm này *"}
+                    name={"review"}
+                    control={control}
+                  ></Textarea>
+                  <Button
+                    type="submit"
+                    className="commentBtn"
+                    width={"100%"}
+                    isLoading={isSubmitting}
+                    disabled={isSubmitting}
+                  >
+                    Bình luận
+                  </Button>
+                </form>
+              )}
+            </CommentStyles>
+          </TabPanel>
+        </TabStyles>
+
         <ProductSimilar category={category}></ProductSimilar>
       </div>
       <Footer></Footer>
