@@ -59,6 +59,7 @@ function ProductDetailPage() {
   const { slug } = useParams();
   const [product, setProduct] = useState([]);
   const [listComment, setListComment] = useState([]);
+  const [renderPage, setRenderPage] = useState(false);
   const schema = yup.object({
     review: yup.string().required("Vui long nhập nội dung đánh giá"),
   });
@@ -80,7 +81,7 @@ function ProductDetailPage() {
   };
   useEffect(() => {
     handleGetProduct();
-  }, [slug]);
+  }, [slug, renderPage]);
   const {
     _id,
     image,
@@ -103,7 +104,7 @@ function ProductDetailPage() {
   };
   useEffect(() => {
     handleGetComment();
-  }, [_id, slug]);
+  }, [_id, slug, renderPage]);
   const handleSubmitComment = async (values) => {
     if (!isValid) return;
     try {
@@ -118,8 +119,7 @@ function ProductDetailPage() {
         })
         .then(() => {
           toast.success("Bình luận sản phẩm thành công");
-          handleGetProduct();
-          handleGetComment();
+          setRenderPage(true);
         });
     } catch (error) {
       console.log(error);
