@@ -141,6 +141,7 @@ const Header = () => {
   const accessToken = user?.accessToken;
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
   const handleSignOut = () => {
     logout(dispatch, navigate, accessToken);
     toast.success("Đăng xuất thành công!");

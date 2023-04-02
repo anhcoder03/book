@@ -49,6 +49,11 @@ const sidebarLinks = [
     icon: <i className="fa-regular fa-user"></i>,
   },
   {
+    title: "Order",
+    url: "/manage/order",
+    icon: <i className="fa-solid fa-cart-shopping"></i>,
+  },
+  {
     title: "Logout",
     url: "/",
     icon: <i className="fa-solid fa-right-from-bracket"></i>,

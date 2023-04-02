@@ -22,6 +22,11 @@ const cartSlice = createSlice({
         state.totalPrice += newItem.price * newItem.quantity;
       }
     },
+    deleteAll(state) {
+      state.items = [];
+      state.totalQuantity = 0;
+      state.totalPrice = 0;
+    },
     deleteItem(state, action) {
       const itemId = action.payload;
       const existingItemIndex = state.items.findIndex(
@@ -59,7 +64,12 @@ const cartSlice = createSlice({
     },
   },
 });
-export const { addItem, deleteItem, decreaseQuantity, increaseQuantity } =
-  cartSlice.actions;
+export const {
+  addItem,
+  deleteAll,
+  deleteItem,
+  decreaseQuantity,
+  increaseQuantity,
+} = cartSlice.actions;
 
 export default cartSlice.reducer;

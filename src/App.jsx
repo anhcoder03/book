@@ -29,6 +29,10 @@ const UpdateProduct = React.lazy(() =>
 const UpdateUserManage = React.lazy(() =>
   import("./modules/user/UpdateUserManage")
 );
+const OrderManage = React.lazy(() => import("./modules/order/OrderManage"));
+const ViewOrderDetail = React.lazy(() =>
+  import("./modules/order/ViewOrderDetail")
+);
 const UserManage = React.lazy(() => import("./modules/user/UserManage"));
 const DashboardPage = React.lazy(() => import("./pages/admin/DashboardPage"));
 const PageNotFound = React.lazy(() => import("./pages/PageNotFound"));
@@ -116,6 +120,18 @@ function App() {
             <Route
               path="/manage/update_product/:id"
               element={<UpdateProduct></UpdateProduct>}
+            ></Route>
+          </Route>
+          <Route element={<DashboardLayout></DashboardLayout>}>
+            <Route
+              path="/manage/order"
+              element={<OrderManage></OrderManage>}
+            ></Route>
+          </Route>
+          <Route element={<DashboardLayout></DashboardLayout>}>
+            <Route
+              path="/manage/order_detail/:id"
+              element={<ViewOrderDetail></ViewOrderDetail>}
             ></Route>
           </Route>
         </Routes>
