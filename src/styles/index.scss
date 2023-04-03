@@ -31,6 +31,7 @@ canvas,
 svg {
   display: block;
   max-width: 100%;
+  width: 100%;
 }
 
 input,
@@ -97,10 +98,10 @@ body {
 }
 .MuiTabs-flexContainer
   .css-1h9z7r5-MuiButtonBase-root-MuiTab-root.Mui-selected {
-  color: #ff6651;
+  color: #ff6651 !important;
 }
 .MuiTabs-indicator.css-1aquho2-MuiTabs-indicator {
-  background-color: #ff6651;
+  background-color: #ff6651 !important;
 }
 .css-1ujnqem-MuiTabs-root {
   border-bottom: 1px solid rgb(218, 225, 231);

@@ -13,16 +13,19 @@ import AuthenticationPage from "./AuthenticationPage";
 import axiosClient from "../axios/configAxios";
 
 const schema = yup.object({
-  fullname: yup.string().required("Please enter your fullname"),
-  username: yup.string().required("Please enter your username"),
+  fullname: yup.string().required("Vui lòng nhập fullname!"),
+  username: yup.string().required("Vui lòng nhập username!"),
   password: yup
     .string()
-    .min(8, "Your password must be at least 8 characters or greater")
-    .required("Please enter your password"),
+    .required("Vui lòng nhập mật khẩu!")
+    .min(8, "Mật khẩu ít nhất phải 8 ký tự!"),
+  rePassword: yup
+    .string()
+    .oneOf([yup.ref("password")], "Mật khẩu nhập lại không khớp!"),
   email: yup
     .string()
-    .email("Please enter valid email address")
-    .required("Please enter your email address"),
+    .required("Vui lòng nhập email!")
+    .email("Vui lòng nhập đúng định dạng email!"),
 });
 const SignUpPage = () => {
   const navigate = useNavigate();
@@ -37,13 +40,13 @@ const SignUpPage = () => {
     resolver: yupResolver(schema),
   });
   const handleSignUp = async (values) => {
-    console.log(values);
+    const { rePassword, ...newValue } = values;
     try {
       if (!isValid) return;
       await axiosClient.request({
         method: "post",
         url: "/register",
-        data: values,
+        data: newValue,
       });
       toast.success("Đăng ký tài khoản thành công !");
       navigate("/sign-in");
@@ -92,6 +95,29 @@ const SignUpPage = () => {
             type={togglePassword ? "text" : "password"}
             name="password"
             placeholder="Please enter you password"
+            control={control}
+          >
+            {!togglePassword ? (
+              <IconEyeClose
+                onClick={() => {
+                  setTogglePassword((t) => !t);
+                }}
+              ></IconEyeClose>
+            ) : (
+              <IconEyeOpen
+                onClick={() => {
+                  setTogglePassword((t) => !t);
+                }}
+              ></IconEyeOpen>
+            )}
+          </Input>
+        </Field>
+        <Field>
+          <Label htmlFor="rePassword">Re-Password</Label>
+          <Input
+            type={togglePassword ? "text" : "password"}
+            name="rePassword"
+            placeholder="Please enter you re-password"
             control={control}
           >
             {!togglePassword ? (

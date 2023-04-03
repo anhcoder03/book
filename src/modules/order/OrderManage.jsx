@@ -70,7 +70,7 @@ const OrderManage = () => {
                     ></ActionView>
                     <ActionEdit
                       onClick={() =>
-                        navigate(`/manage/update_product/${item._id}`)
+                        navigate(`/manage/update_order/${item._id}`)
                       }
                     ></ActionEdit>
                     <ActionDelete

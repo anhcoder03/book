@@ -39,6 +39,10 @@ const CategoryStyles = styled.div`
     font-size: 18px;
     font-weight: 700;
   }
+  .active {
+    background-color: ${(props) => props.theme.primary};
+    color: #fff;
+  }
 `;
 const ProductContentStyles = styled.div`
   margin-top: 50px;
@@ -55,6 +59,7 @@ const ListProduct = () => {
   const [pageCount, setPageCount] = useState(0);
   const [loading, setLoading] = useState(true);
   const [url, setUrl] = useState(`/getProductAll`);
+  const [selectedCategory, setSelectedCategory] = useState("");
   const handleGetCategory = async () => {
     const response = await axiosClient({
       method: "get",
@@ -69,6 +74,7 @@ const ListProduct = () => {
   const handleGetProductByCategory = (slug, categoryName) => {
     setUrl(`/getProductAll?category=${slug}`);
     setTitle(categoryName);
+    setSelectedCategory(categoryName);
   };
   useEffect(() => {
     const handleGetProductAll = async () => {
@@ -90,12 +96,14 @@ const ListProduct = () => {
         <h3 className="category-title  bg-primary py-3 px-3 text-white rounded-t-lg">
           Danh mục sản phẩm
         </h3>
-        <div className="category-list mt-2">
+        <div className="category-list">
           {listCategory.length > 0 &&
             listCategory.map((category) => (
               <div key={category._id}>
                 <p
-                  className={`p-3 hover:bg-primary hover:text-white`}
+                  className={`p-3 cursor-pointer hover:bg-primary hover:opacity-70 hover:text-white ${
+                    category.categoryName === selectedCategory ? "active" : ""
+                  }`}
                   onClick={() =>
                     handleGetProductByCategory(
                       category.slug,
