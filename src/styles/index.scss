@@ -96,15 +96,17 @@ body {
   padding: 0;
   margin-top: 20px;
 }
-.MuiTabs-flexContainer
-  .css-1h9z7r5-MuiButtonBase-root-MuiTab-root.Mui-selected {
+.css-1q2h7u5.Mui-selected {
   color: #ff6651 !important;
 }
-.MuiTabs-indicator.css-1aquho2-MuiTabs-indicator {
+.css-ttwr4n {
   background-color: #ff6651 !important;
 }
-.css-1ujnqem-MuiTabs-root {
-  border-bottom: 1px solid rgb(218, 225, 231);
+.MuiTabs-root {
+  border-bottom: 1px solid rgb(218, 225, 231) !important;
+}
+.hYrSaX {
+  padding: 0 !important;
 }
 .hidden-input {
   border: 0;
