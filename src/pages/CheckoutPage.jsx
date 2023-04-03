@@ -78,6 +78,7 @@ const CheckoutPage = () => {
   const products = useSelector((state) => state.cart.items);
   const totalPrice = useSelector((state) => state.cart.totalPrice);
   const user = useSelector((state) => state.auth.login?.currentUser);
+  const accessToken = user?.accessToken;
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const {
@@ -100,7 +101,12 @@ const CheckoutPage = () => {
     try {
       const response = await axios.post(
         "https://api-book1.onrender.com/insertOrder",
-        newValues
+        newValues,
+        {
+          headers: {
+            token: `Bearer ${accessToken}`,
+          },
+        }
       );
       if (response.data) {
         dispatch(deleteAll());
