@@ -7,8 +7,11 @@ import { Table } from "../../components/table";
 import { ActionDelete, ActionEdit } from "../../drafts/action";
 import DashboardHeading from "../../drafts/DashboardHeading";
 import formatPrice from "../../utils/formatPrice";
+import { useSelector } from "react-redux";
 
-const ViewOrderDetail = () => {
+const OrderDetail = () => {
+  const user = useSelector((state) => state.auth.login?.currentUser);
+  const accessToken = user?.accessToken;
   let { id } = useParams();
   const [listOrderDetail, setListOrderDetail] = useState();
   useEffect(() => {
@@ -16,6 +19,9 @@ const ViewOrderDetail = () => {
       const response = await axiosClient.request({
         method: "get",
         url: `/getOrderDetail/${id}`,
+        headers: {
+          token: `Bearer ${accessToken}`,
+        },
       });
       console.log(response);
       setListOrderDetail(response);
@@ -62,4 +68,4 @@ const ViewOrderDetail = () => {
   );
 };
 
-export default ViewOrderDetail;
+export default OrderDetail;

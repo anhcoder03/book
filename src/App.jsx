@@ -2,6 +2,12 @@ import React, { lazy, Suspense } from "react";
 import { Route, Routes } from "react-router-dom";
 import LoadingPage from "./components/common/LoadingPage";
 import { AuthProvider } from "./context/auth-context";
+const OrderManage = React.lazy(() =>
+  import("./modules/OrderManage/OrderManage")
+);
+const OrderDetail = React.lazy(() =>
+  import("./modules/OrderManage/OrderDetail")
+);
 const HomePage = React.lazy(() => import("./pages/HomePage"));
 const CartPage = React.lazy(() => import("./pages/CartPage"));
 const ProductPage = React.lazy(() => import("./pages/ProductPage"));
@@ -28,10 +34,6 @@ const UpdateProduct = React.lazy(() =>
 );
 const UpdateUserManage = React.lazy(() =>
   import("./modules/user/UpdateUserManage")
-);
-const OrderManage = React.lazy(() => import("./modules/order/OrderManage"));
-const ViewOrderDetail = React.lazy(() =>
-  import("./modules/order/ViewOrderDetail")
 );
 const UserManage = React.lazy(() => import("./modules/user/UserManage"));
 const DashboardPage = React.lazy(() => import("./pages/admin/DashboardPage"));
@@ -131,7 +133,7 @@ function App() {
           <Route element={<DashboardLayout></DashboardLayout>}>
             <Route
               path="/manage/order_detail/:id"
-              element={<ViewOrderDetail></ViewOrderDetail>}
+              element={<OrderDetail></OrderDetail>}
             ></Route>
           </Route>
         </Routes>

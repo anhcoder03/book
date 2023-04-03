@@ -8,8 +8,11 @@ import { ActionDelete, ActionEdit, ActionView } from "../../drafts/action";
 import DashboardHeading from "../../drafts/DashboardHeading";
 import convertTimestampToDateTime from "../../utils/convertTime";
 import formatPrice from "../../utils/formatPrice";
+import { useSelector } from "react-redux";
 
 const OrderManage = () => {
+  const user = useSelector((state) => state.auth.login?.currentUser);
+  const accessToken = user?.accessToken;
   const navigate = useNavigate();
   const [listOrder, setListOrder] = useState([]);
   const [nextPage, setNextPage] = useState(1);
@@ -19,6 +22,9 @@ const OrderManage = () => {
         const data = await axiosClient.request({
           method: "get",
           url: `/getOrders?page=${nextPage}`,
+          headers: {
+            token: `Bearer ${accessToken}`,
+          },
         });
         setListOrder(data.data);
         // setPageCount(Math.ceil(data.totalPage));
