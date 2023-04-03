@@ -11,6 +11,7 @@ import { useForm } from "react-hook-form";
 import { Button } from "../../components/button";
 import { toast } from "react-toastify";
 import DashboardHeading from "../../drafts/DashboardHeading";
+import { useSelector } from "react-redux";
 
 const FormUpdateStyles = styled.form`
   width: 100%;
@@ -22,6 +23,8 @@ const schema = yup.object({
 });
 
 const AddCategory = () => {
+  const user = useSelector((state) => state.auth.login?.currentUser);
+  const accessToken = user?.accessToken;
   const navigate = useNavigate();
   const {
     control,
@@ -40,6 +43,9 @@ const AddCategory = () => {
           method: "post",
           url: `/create_category`,
           data: values,
+          headers: {
+            token: `Bearer ${accessToken}`,
+          },
         })
         .then((data) => {
           toast.success("Thêm danh mục thành công");

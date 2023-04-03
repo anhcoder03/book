@@ -16,6 +16,7 @@ import ImageUpload from "../../components/image/ImageUpload";
 import useFirebaseImage from "../../hooks/useFirebaseImage";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
+import { useSelector } from "react-redux";
 
 const FormUpdateStyles = styled.form`
   width: 100%;
@@ -26,6 +27,8 @@ const FormUpdateStyles = styled.form`
 const UpdateProduct = () => {
   let { id } = useParams();
   const navigate = useNavigate();
+  const user = useSelector((state) => state.auth.login?.currentUser);
+  const accessToken = user?.accessToken;
   const [listCategory, setListCategory] = useState([]);
   const [desc, setDesc] = useState("");
   let listSlugCategory = [];
@@ -98,6 +101,9 @@ const UpdateProduct = () => {
           method: "put",
           url: `/update_product/${id}`,
           data: { ...values, image, desc },
+          headers: {
+            token: `Bearer ${accessToken}`,
+          },
         })
         .then((data) => {
           toast.success(data.message);

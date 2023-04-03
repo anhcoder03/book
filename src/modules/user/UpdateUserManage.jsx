@@ -53,6 +53,9 @@ const UpdateUserManage = () => {
       const data = await axiosClient.request({
         method: "get",
         url: `getUser/${id}`,
+        headers: {
+          token: `Bearer ${accessToken}`,
+        },
       });
       reset(data);
       setImage(data.image);

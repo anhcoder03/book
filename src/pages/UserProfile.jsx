@@ -53,6 +53,9 @@ function UserProfile() {
       const data = await axiosClient.request({
         method: "get",
         url: `/getUser/${userId}`,
+        headers: {
+          token: `Bearer ${accessToken}`,
+        },
       });
       reset(data);
       setImage(data.image);

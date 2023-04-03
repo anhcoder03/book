@@ -8,8 +8,11 @@ import Swal from "sweetalert2";
 import { ActionDelete, ActionEdit } from "../../drafts/action";
 import { Button } from "../../components/button";
 import ReactPaginate from "react-paginate";
+import { useSelector } from "react-redux";
 
 const ProductManage = () => {
+  const user = useSelector((state) => state.auth.login?.currentUser);
+  const accessToken = user?.accessToken;
   const [listProduct, setListProduct] = useState([]);
   const [pageCount, setPageCount] = useState(0);
   const [nextPage, setNextPage] = useState(1);
@@ -47,6 +50,9 @@ const ProductManage = () => {
           axiosClient.request({
             method: "delete",
             url: `/delete_product/${id}`,
+            headers: {
+              token: `Bearer ${accessToken}`,
+            },
           });
           const updatedList = listProduct.filter((item) => item._id !== id); // Filter out deleted product from list
           setListProduct(updatedList); // Update state

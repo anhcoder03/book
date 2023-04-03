@@ -7,8 +7,11 @@ import DashboardHeading from "../../drafts/DashboardHeading";
 import Swal from "sweetalert2";
 import { ActionDelete, ActionEdit } from "../../drafts/action";
 import { Button } from "../../components/button";
+import { useSelector } from "react-redux";
 
 const CategoryManage = () => {
+  const user = useSelector((state) => state.auth.login?.currentUser);
+  const accessToken = user?.accessToken;
   const [listCategory, setListCategory] = useState([]);
   const navigate = useNavigate();
   const getCategories = async () => {
@@ -42,6 +45,9 @@ const CategoryManage = () => {
           await axiosClient.request({
             method: "delete",
             url: `/delete_category/${id}`,
+            headers: {
+              token: `Bearer ${accessToken}`,
+            },
           });
           getCategories();
           Swal.fire("Deleted!", "Your file has been deleted.", "success");

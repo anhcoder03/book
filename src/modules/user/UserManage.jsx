@@ -19,6 +19,9 @@ const UserManage = () => {
       const data = await axiosClient.request({
         method: "get",
         url: "/getUsers",
+        headers: {
+          token: `Bearer ${accessToken}`,
+        },
       });
       setListUser(data);
     } catch (error) {

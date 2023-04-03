@@ -16,6 +16,7 @@ import ImageUpload from "../../components/image/ImageUpload";
 import useFirebaseImage from "../../hooks/useFirebaseImage";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
+import { useSelector } from "react-redux";
 
 const FormUpdateStyles = styled.form`
   width: 100%;
@@ -26,6 +27,8 @@ const FormUpdateStyles = styled.form`
 const AddProduct = () => {
   const navigate = useNavigate();
   const [listCategory, setListCategory] = useState([]);
+  const user = useSelector((state) => state.auth.login?.currentUser);
+  const accessToken = user?.accessToken;
   let listSlugCategory = [];
   listCategory.length > 0 &&
     listCategory.map((item) => listSlugCategory.push(item?.slug));
@@ -63,6 +66,9 @@ const AddProduct = () => {
       const data = await axiosClient.request({
         method: "get",
         url: "/get_category_all",
+        headers: {
+          token: `Bearer ${accessToken}`,
+        },
       });
       setListCategory(data.data);
     } catch (error) {
@@ -80,6 +86,9 @@ const AddProduct = () => {
         .request({
           method: "post",
           url: `/create_product`,
+          headers: {
+            token: `Bearer ${accessToken}`,
+          },
           data: { ...cloneValue, image, desc },
         })
         .then((data) => {

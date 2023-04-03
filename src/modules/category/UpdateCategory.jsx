@@ -11,6 +11,7 @@ import { useForm } from "react-hook-form";
 import { Button } from "../../components/button";
 import { toast } from "react-toastify";
 import DashboardHeading from "../../drafts/DashboardHeading";
+import { useSelector } from "react-redux";
 
 const FormUpdateStyles = styled.form`
   width: 100%;
@@ -22,6 +23,8 @@ const schema = yup.object({
 });
 
 const UpdateCategory = () => {
+  const user = useSelector((state) => state.auth.login?.currentUser);
+  const accessToken = user?.accessToken;
   let { id } = useParams();
   const navigate = useNavigate();
   const {
@@ -51,6 +54,9 @@ const UpdateCategory = () => {
           method: "put",
           url: `/update_category/${id}`,
           data: values,
+          headers: {
+            token: `Bearer ${accessToken}`,
+          },
         })
         .then((data) => {
           toast.success("Cập nhật danh mục thành công");
