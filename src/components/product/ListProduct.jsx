@@ -42,6 +42,7 @@ const CategoryStyles = styled.div`
   .active {
     background-color: ${(props) => props.theme.primary};
     color: #fff;
+    opacity: 0.8;
   }
 `;
 const ProductContentStyles = styled.div`
@@ -105,7 +106,7 @@ const ListProduct = () => {
             listCategory.map((category) => (
               <div key={category._id}>
                 <p
-                  className={`p-3 cursor-pointer hover:bg-primary hover:opacity-70 hover:text-white ${
+                  className={`p-3 cursor-pointer hover:bg-primary hover:text-white transition-all ${
                     category.slug === selectedCategory ? "active" : ""
                   }`}
                   onClick={() =>
