@@ -59,7 +59,7 @@ const ListProduct = () => {
   const [pageCount, setPageCount] = useState(0);
   const [loading, setLoading] = useState(true);
   const [url, setUrl] = useState(`/getProductAll`);
-  const [selectedCategory, setSelectedCategory] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState(null);
   const handleGetCategory = async () => {
     const response = await axiosClient({
       method: "get",
@@ -69,12 +69,16 @@ const ListProduct = () => {
   };
   const handlePageClick = (event) => {
     const page = event.selected + 1;
-    setUrl(`/getProductAll?page=${page}`);
+    setUrl(
+      `/getProductAll?${
+        selectedCategory ? `category=${selectedCategory}&` : ""
+      }page=${page}`
+    );
   };
   const handleGetProductByCategory = (slug, categoryName) => {
     setUrl(`/getProductAll?category=${slug}`);
     setTitle(categoryName);
-    setSelectedCategory(categoryName);
+    setSelectedCategory(slug);
   };
   useEffect(() => {
     const handleGetProductAll = async () => {
@@ -102,7 +106,7 @@ const ListProduct = () => {
               <div key={category._id}>
                 <p
                   className={`p-3 cursor-pointer hover:bg-primary hover:opacity-70 hover:text-white ${
-                    category.categoryName === selectedCategory ? "active" : ""
+                    category.slug === selectedCategory ? "active" : ""
                   }`}
                   onClick={() =>
                     handleGetProductByCategory(
