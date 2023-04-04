@@ -202,6 +202,7 @@ const ListCart = () => {
         ) : (
           <div className="no-cart">
             <img
+              className="w-[300px]"
               src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTn8T6ADaMld2sfLFu6mR1dK7_G53ibKSnoCJTMkwP4YWvi64XuLZMPYDRoRWyXvGTqpIM&usqp=CAU"
               alt=""
             />
@@ -212,16 +213,20 @@ const ListCart = () => {
           </div>
         )}
       </div>
-      <div className="cart-bottom">
-        <div className="totalPrice">Tổng tiền: {formatPrice(totalPrice)}đ</div>
-        <div className="cart-header-item">
-          <NavLink to={"/checkout"}>
-            <Button height={"50px"} width={"250px"}>
-              Thanh toán
-            </Button>
-          </NavLink>
+      {listCart.length > 0 && (
+        <div className="cart-bottom">
+          <div className="totalPrice">
+            Tổng tiền: {formatPrice(totalPrice)}đ
+          </div>
+          <div className="cart-header-item">
+            <NavLink to={"/checkout"}>
+              <Button height={"50px"} width={"250px"}>
+                Thanh toán
+              </Button>
+            </NavLink>
+          </div>
         </div>
-      </div>
+      )}
     </ListCartStyles>
   );
 };

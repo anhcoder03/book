@@ -185,9 +185,9 @@ function ProductDetailPage() {
                         />
                         <div className="">
                           <p className="font-medium">{item.username}</p>
-                          <p className="flex items-center text-xs lg:text-lg">
+                          <p className="flex items-center gap-2  text-xs lg:text-lg">
                             <Rating readOnly value={item?.rating} />
-                            <span>
+                            <span className="text-xs">
                               {convertTimestampToDateTime(item.createdAt)}
                             </span>
                           </p>
