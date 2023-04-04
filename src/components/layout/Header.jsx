@@ -128,7 +128,7 @@ const HeaderStyles = styled.header`
       display: none;
     }
     .menu-icon {
-      display: block;
+      display: inline;
     }
   }
 `;
