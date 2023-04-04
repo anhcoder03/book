@@ -14,19 +14,23 @@ const ResultSearchStyle = styled.div`
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
   display: flex;
   flex-direction: column;
-  gap: 10px 0;
+  gap: 20px 0;
 
   .product-item {
     display: flex;
     width: 100%;
-    max-height: 120px;
-  }
-  .product-image {
-    width: 100px;
     height: 100%;
   }
+  .product-image {
+    height: 100%;
+  }
+  .product-title {
+    font-size: 12px;
+  }
   .product-image img {
-    width: 100%;
+    object-fit: cover;
+    /* width: 100%; */
+    width: 60px;
     height: 100%;
   }
   @media screen and (max-width: 767.98px) {
@@ -35,16 +39,16 @@ const ResultSearchStyle = styled.div`
     top: 100%;
     .product-item {
       max-height: 80px;
-      gap: 40px;
+      gap: 20px;
     }
     .product-image {
-      width: 30%;
+      width: 50px;
     }
     .product-name {
       width: 70%;
     }
     .product-title {
-      font-size: 14px;
+      font-size: 12px;
     }
   }
 `;
