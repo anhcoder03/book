@@ -9,13 +9,19 @@ import DashboardHeading from "../../drafts/DashboardHeading";
 import convertTimestampToDateTime from "../../utils/convertTime";
 import formatPrice from "../../utils/formatPrice";
 import { useSelector } from "react-redux";
+import Swal from "sweetalert2";
+import ReactPaginate from "react-paginate";
 
 const OrderManage = () => {
   const user = useSelector((state) => state.auth.login?.currentUser);
   const accessToken = user?.accessToken;
   const navigate = useNavigate();
   const [listOrder, setListOrder] = useState([]);
+  const [pageCount, setPageCount] = useState(0);
   const [nextPage, setNextPage] = useState(1);
+  const handlePageClick = (event) => {
+    setNextPage(event.selected + 1);
+  };
   useEffect(() => {
     const getOrders = async () => {
       try {
@@ -27,13 +33,42 @@ const OrderManage = () => {
           },
         });
         setListOrder(data.data);
-        // setPageCount(Math.ceil(data.totalPage));
+        setPageCount(Math.ceil(data.totalPage));
       } catch (err) {
         console.log(err);
       }
     };
     getOrders();
   }, [nextPage]);
+
+  const handleDeleteOrder = (id) => {
+    Swal.fire({
+      title: "Bạn muốn xoá đơn hàng này?",
+      text: "Thao tác này sẽ khiến đơn hàng bị xoá vĩnh viễn!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        try {
+          axiosClient.request({
+            method: "delete",
+            url: `/deleteOrder/${id}`,
+            headers: {
+              token: `Bearer ${accessToken}`,
+            },
+          });
+          const updatedList = listOrder.filter((item) => item._id !== id); // Filter out deleted product from list
+          setListOrder(updatedList); // Update state
+          Swal.fire("Deleted!", "Your file has been deleted.", "success");
+        } catch (err) {
+          toast.error("Đã xẩy ra lỗi");
+        }
+      }
+    });
+  };
   return (
     <>
       <DashboardHeading title="Quản lý giỏ hàng"></DashboardHeading>
@@ -80,7 +115,7 @@ const OrderManage = () => {
                       }
                     ></ActionEdit>
                     <ActionDelete
-                    // onClick={() => handleDeleteProduct(item._id)}
+                      onClick={() => handleDeleteOrder(item._id)}
                     ></ActionDelete>
                   </div>
                 </td>
@@ -88,6 +123,28 @@ const OrderManage = () => {
             ))}
         </tbody>
       </Table>
+      <div className="pb-10">
+        <ReactPaginate
+          hrefBuilder={() => {
+            return "#";
+          }}
+          breakLabel="..."
+          nextLabel="next >"
+          onPageChange={handlePageClick}
+          pageRangeDisplayed={2}
+          pageCount={pageCount}
+          disableInitialCallback={true}
+          previousLabel="< previous"
+          renderOnZeroPageCount={null}
+          className="mb-10 flex flex-wrap items-center justify-center gap-x-2 gap-y-[6px] text-[15px] text-[#ececec] lg:gap-x-3 lg:text-base lg:mb-0 "
+          pageLinkClassName="bg-[#33292E] bg-opacity-80 page-link transition-all hover:bg-opacity-100 py-1 px-2 rounded-[5px]"
+          previousClassName="bg-[#33292E] bg-opacity-80  transition-all hover:bg-opacity-100 py-1 px-2 rounded-[5px]"
+          nextClassName="bg-[#33292E] nextPage bg-opacity-80  transition-all hover:bg-opacity-100 py-1 px-2 rounded-[5px]"
+          activeClassName="page-active text-primary"
+          disabledClassName="opacity-40"
+          disabledLinkClassName="hover:cursor-default"
+        />
+      </div>
     </>
   );
 };
