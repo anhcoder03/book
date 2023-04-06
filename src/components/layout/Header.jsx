@@ -196,6 +196,11 @@ const Header = () => {
                     <p onClick={() => navigate("/profile")}>
                       Cập nhật tài khoản
                     </p>
+                    {!user?.admin && (
+                      <p onClick={() => navigate("/my-order")}>
+                        Đơn hàng của tôi
+                      </p>
+                    )}
                     {user?.admin === true ? (
                       <p onClick={() => navigate("/dashboard")}>Dashboard</p>
                     ) : null}
