@@ -98,7 +98,7 @@ function ProductDetailPage() {
   const handleGetComment = async () => {
     const response = await axiosClient.request({
       method: "get",
-      url: `getCommentAll/${_id}`,
+      url: `/getCommentById/${_id}`,
     });
     setListComment(response.data);
   };

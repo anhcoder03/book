@@ -8,6 +8,9 @@ const OrderManage = React.lazy(() =>
 const OrderDetail = React.lazy(() =>
   import("./modules/OrderManage/OrderDetail")
 );
+const UpdateOrder = React.lazy(() =>
+  import("./modules/OrderManage/UpdateOrder")
+);
 const HomePage = React.lazy(() => import("./pages/HomePage"));
 const CartPage = React.lazy(() => import("./pages/CartPage"));
 const ProductPage = React.lazy(() => import("./pages/ProductPage"));
@@ -134,6 +137,12 @@ function App() {
             <Route
               path="/manage/order_detail/:id"
               element={<OrderDetail></OrderDetail>}
+            ></Route>
+          </Route>
+          <Route element={<DashboardLayout></DashboardLayout>}>
+            <Route
+              path="/manage/update_order/:id"
+              element={<UpdateOrder></UpdateOrder>}
             ></Route>
           </Route>
         </Routes>
