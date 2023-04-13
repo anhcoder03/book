@@ -11,6 +11,8 @@ import formatPrice from "../../utils/formatPrice";
 import { useSelector } from "react-redux";
 import Swal from "sweetalert2";
 import ReactPaginate from "react-paginate";
+import { orderStatus } from "../../utils/constants";
+import { LabelStatus } from "../../components/label";
 
 const OrderManage = () => {
   const user = useSelector((state) => state.auth.login?.currentUser);
@@ -100,8 +102,21 @@ const OrderManage = () => {
                     {formatPrice(item.totalAmount)}đ
                   </p>
                 </td>
-                <td>{convertTimestampToDateTime(item.createdAt)}</td>
-                <td>{item.status}</td>
+                <td className="text-xs">
+                  {convertTimestampToDateTime(item.createdAt)}
+                </td>
+                <td>
+                  {item.status === orderStatus.APPROVED && (
+                    <LabelStatus type="success">Thành công</LabelStatus>
+                  )}
+                  {item.status === orderStatus.PENDING && (
+                    <LabelStatus type="warning">Chờ xác nhận</LabelStatus>
+                  )}
+                  {item.status === orderStatus.REJECTED && (
+                    <LabelStatus type="danger">Thất bại</LabelStatus>
+                  )}
+                  {/* <LabelStatus type=""></LabelStatus> */}
+                </td>
                 <td>
                   <div className="flex items-center gap-x-3 text-gray-500">
                     <ActionView
@@ -109,14 +124,17 @@ const OrderManage = () => {
                         navigate(`/manage/order_detail/${item._id}`);
                       }}
                     ></ActionView>
-                    <ActionEdit
-                      onClick={() =>
-                        navigate(`/manage/update_order/${item._id}`)
-                      }
-                    ></ActionEdit>
-                    <ActionDelete
-                      onClick={() => handleDeleteOrder(item._id)}
-                    ></ActionDelete>
+                    {item.status !== orderStatus.APPROVED &&
+                      item.status !== orderStatus.REJECTED && (
+                        <ActionEdit
+                          onClick={() => handleDeleteOrder(item._id)}
+                        ></ActionEdit>
+                      )}
+                    {item.status === orderStatus.PENDING && (
+                      <ActionDelete
+                        onClick={() => handleDeleteOrder(item._id)}
+                      ></ActionDelete>
+                    )}
                   </div>
                 </td>
               </tr>

@@ -10,3 +10,9 @@ export const theme = {
   black: "#171725",
   red: "#C92127",
 };
+
+export const orderStatus = {
+  APPROVED: "Thành công",
+  PENDING: "Chờ xác nhận",
+  REJECTED: "Thất bại",
+};
