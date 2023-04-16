@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 const DashboardHeaderStyles = styled.div`
   background-color: white;
@@ -31,7 +32,9 @@ const DashboardHeader = () => {
   return (
     <DashboardHeaderStyles>
       <div className="sidebar-logo">
-        <img src="./logo.svg" alt="" />
+        <Link to={"/"}>
+          <img src="/logo.svg" alt="" />
+        </Link>
       </div>
       <div className="header-avatar">
         <img

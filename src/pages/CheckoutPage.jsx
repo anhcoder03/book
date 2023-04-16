@@ -70,7 +70,7 @@ const schema = yup.object({
     .string()
     .email("Please enter valid email address!")
     .required("Please enter your email address!"),
-  phone: yup.number().required("Vui lòng nhập số điện thoại!"),
+  phone: yup.string().required("Vui lòng nhập số điện thoại!"),
   address: yup.string().required("Vui lòng nhập địa chỉ!"),
 });
 
@@ -85,7 +85,6 @@ const CheckoutPage = () => {
     control,
     setValue,
     handleSubmit,
-    reset,
     formState: { errors, isValid, isSubmitting },
   } = useForm({
     mode: "onChange",
