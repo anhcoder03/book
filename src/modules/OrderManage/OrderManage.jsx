@@ -127,7 +127,9 @@ const OrderManage = () => {
                     {item.status !== orderStatus.APPROVED &&
                       item.status !== orderStatus.REJECTED && (
                         <ActionEdit
-                          onClick={() => handleDeleteOrder(item._id)}
+                          onClick={() =>
+                            navigate(`/manage/update_order/${item._id}`)
+                          }
                         ></ActionEdit>
                       )}
                     {item.status === orderStatus.PENDING && (
