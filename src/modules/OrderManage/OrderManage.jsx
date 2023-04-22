@@ -115,7 +115,6 @@ const OrderManage = () => {
                   {item.status === orderStatus.REJECTED && (
                     <LabelStatus type="danger">Thất bại</LabelStatus>
                   )}
-                  {/* <LabelStatus type=""></LabelStatus> */}
                 </td>
                 <td>
                   <div className="flex items-center gap-x-3 text-gray-500">
