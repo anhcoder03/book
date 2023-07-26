@@ -11,7 +11,7 @@ import {
 export const login = async (user, dispatch, navigate) => {
   dispatch(loginStart());
   try {
-    const res = await axios.post("https://api-book1.onrender.com/login", user);
+    const res = await axios.post("https://ps6947-1234.csb.app/login", user);
     dispatch(loginSuccess(res?.data));
     navigate("/");
   } catch (error) {
@@ -23,7 +23,7 @@ export const logout = async (dispatch, navigate, accessToken) => {
   dispatch(logoutStart());
   try {
     const res = await axios.post(
-      "https://api-book1.onrender.com/logout",
+      "https://ps6947-1234.csb.app/logout",
       null,
       {
         headers: { token: `Bearer ${accessToken}` },
