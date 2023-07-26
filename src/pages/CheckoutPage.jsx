@@ -99,7 +99,7 @@ const CheckoutPage = () => {
     if (!isValid) return;
     try {
       const response = await axios.post(
-        "https://api-book1.onrender.com/insertOrder",
+        "https://ps6947-1234.csb.app/insertOrder",
         newValues,
         {
           headers: {
